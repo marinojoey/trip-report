@@ -1,21 +1,24 @@
-# Use an official Node runtime as a parent image
-FROM node:14-alpine
+# Use an official Node runtime as the base image
+FROM node:18-alpine
 
-# Set the working directory in the container
+# Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json before other files
-# Utilizes Docker cache to save re-installing dependencies if unchanged
+# First, install any dependencies.
+# This layer will be cached, making future builds faster if package.json hasn't changed.
+# Copy over package.json first to leverage Docker cache
 COPY package*.json ./
 
-# Install any needed packages
-RUN npm install
+RUN if [ -f "package-lock.json" ]; then npm ci; else npm install; fi
 
 # Copy the current directory contents into the container at /app
 COPY . .
 
-# Make port 3000 available to the world outside this container
-EXPOSE 3000
+# Build the application
+RUN npm run build
 
-# Run next.js dev command to start your app in development mode
-CMD [ "npm", "run", "dev" ]
+# Run the application
+CMD ["npm", "run", "dev"]
+
+# Expose port 3000
+EXPOSE 3000

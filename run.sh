@@ -49,5 +49,9 @@ docker compose exec app php artisan migrate
 echo -e "${WHITE}Running seeders...${NC}"
 docker compose exec app php artisan db:seed
 
+# Remove dangling images
+echo -e "${WHITE}Removing dangling images...${NC}"
+docker rmi -f $(docker images -f "dangling=true" -q)
+
 # It built, friend
 echo -e "${WHITE}DAAAANG, docker built!!! Nice.${NC}"
