@@ -10,5 +10,5 @@ production) CMD=build
     ;;
 esac
 
-echo "Building clients/personal (yarn $CMD)..."
-pnpm --silent --cwd /app/clients/personal $CMD
+echo "Building client (yarn $CMD)..."
+npm --silent --cwd /app/client $CMD

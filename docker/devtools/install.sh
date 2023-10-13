@@ -3,5 +3,5 @@
 set -e
 set -0 pipefail
 
-echo "Installing dependencies for clients/personal..."
-pnpm install --silent --check-files --cwd /app/clients/personal
+echo "Installing dependencies for client..."
+npm install --silent --check-files --cwd /app/client

@@ -40,20 +40,20 @@ services:
     volumes:
       - ./server:/var/www
 
-  # Trip Report Service
+  # Client Service
   nextjs:
     build:
-      context: ./clients/trip-report
+      context: ./client
       dockerfile: Dockerfile
-    image: trip-report
-    container_name: trip-report
+    image: client
+    container_name: client
     restart: unless-stopped
     ports:
       - "3006:3000"
     networks:
       - app-network
     volumes:
-      - ./clients/trip-report:/app
+      - ./client:/app
     command: ["npm", "run", "dev"]
 
   # Nginx Service
@@ -76,7 +76,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - .:/app
-    working_dir:  /app/clients/trip-report
+    working_dir:  /app/client
 
 networks:
   app-network:

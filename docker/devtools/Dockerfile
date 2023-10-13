@@ -8,7 +8,7 @@ COPY ./build.sh /build.sh
 RUN chmod +x /install.sh /build.sh
 
 # Set working directory inside container
-WORKDIR /app/clients/trip-report
+WORKDIR /app/client
 
 # This will execute when you run `docker compose run --rm devtools`
 CMD [ "/bin/sh" ]
