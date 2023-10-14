@@ -20,15 +20,16 @@ class ReportFactory extends Factory
      */
     public function definition(): array
     {
+        // NOT CURRENTLY USED
         return [
-            'user_id' => function () {
-                return User::factory()->create()->id;
-            },
-            'title' => $this->faker->sentence,
-            'body' => $this->faker->paragraph,
-            'date' => $this->faker->dateTime,
-            'location' => $this->faker->address,
-            'image' => $this->faker->imageUrl(640, 480, 'nature', true),
+            // 'user_id' => function () {
+            //     return User::factory()->create()->id;
+            // },
+            // 'title' => $this->faker->sentence,
+            // 'body' => $this->faker->paragraph,
+            // 'date' => $this->faker->dateTime,
+            // 'location' => $this->faker->address,
+            // 'image' => $this->faker->imageUrl(640, 480, 'nature', true),
         ];
     }
 }
