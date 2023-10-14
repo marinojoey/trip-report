@@ -4,7 +4,7 @@ import axios from 'axios'
 // import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 // import heroimage from './assets/heroimage.jpeg'
-import HeroBackground from './assets/icons/Hero_background'
+import HeroBackground from '../assets/icons/Hero_background'
 
 type Report = {
   id: number;
