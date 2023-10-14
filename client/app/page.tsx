@@ -6,16 +6,7 @@ import React, { useEffect, useState } from 'react'
 // import heroimage from './assets/heroimage.jpeg'
 import HeroBackground from './assets/icons/Hero_background'
 
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  email_verified_at: string;
-  created_at: string;
-  updated_at: string;
-}
-
-interface Report {
+type Report = {
   id: number;
   user_id: number;
   title: string;
@@ -25,28 +16,31 @@ interface Report {
   image: string;
   created_at: string;
   updated_at: string;
-  user: User;
-}
-
-interface Data {
-  reports: Report[];
+  user: {
+    id: number;
+    name: string;
+    email: string;
+    email_verified_at: string;
+    created_at: string;
+    updated_at: string;
+  };
 }
 
 const Home = () => {
-  const [data, setData] = useState<Data>({ reports: [] })
+  const [data, setData] = useState<Report[]>([])
 
     useEffect(() => {
     async function fetchReports() {
-      const response = await axios.get<Data>('http://127.0.0.1:3005/api/reports')
+      const response: Report[] = await axios.get('http://127.0.0.1:3005/api/reports')
       setData(response.data)
     }
 
     fetchReports()
   }, [])
-  console.log(data)
+
   return (
     <section className="flex h-full w-full flex-col justify-between bg-primary text-homeText">
-      {Array.isArray(data.reports) && data.reports.map((report) => (
+      {data.map((report) => (
         <div key={report.id}>
           <h2>{report.title}</h2>
           <p>{report.body}</p>
