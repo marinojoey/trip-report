@@ -7,23 +7,23 @@ WHITE='\033[1;37m'
 NC='\033[0m'
 
 # Remove previous containers and volumes
-echo -e "${WHITE}Shutting down previous environment...${NC}"
+echo -e "${WHITE}Shutting down previous environment${NC}"
 docker compose down -v
 
 # Build images
-echo -e "${WHITE}Building image containers...${NC}"
+echo -e "${WHITE}Building images${NC}"
 docker compose build
 
-# Start Akashic and Nginx services
+# Start Server and Nginx services
 echo -e "${WHITE}Starting Server and Nginx services...${NC}"
 docker compose up -d --remove-orphans app webserver
 
-# Install dependencies for Akashic
+# Install dependencies for Server
 echo -e "${WHITE}Installing Server dependencies...${NC}"
 docker compose exec app composer install
 
-# Start the Personal Site
-echo -e "${WHITE}Starting Front End...${NC}"
+# Start Client
+echo -e "${WHITE}Starting Client...${NC}"
 docker compose up -d --remove-orphans nextjs
 
 duration=20
@@ -43,15 +43,23 @@ done
 
 echo -e "\rDone: [####################] (100%)"
 
-echo -e "${WHITE}Running migrations...${NC}"
+echo -e "${WHITE}Running DB migrations...${NC}"
 docker compose exec app php artisan migrate
 
 echo -e "${WHITE}Running seeders...${NC}"
 docker compose exec app php artisan db:seed
 
-# Remove dangling images
-echo -e "${WHITE}Removing dangling images...${NC}"
-docker rmi -f $(docker images -f "dangling=true" -q)
+# If there are dangling images, remove them
+if [ -n "$(docker images -f dangling=true -q)" ]; then
+  echo -e "${WHITE}Removing dangling images...${NC}"
+  docker rmi -f $(docker images -f "dangling=true" -q)
+else
+  echo "No dangling images to remove."
+fi
+
+# If there are unused volumes, remove them
+echo -e "${WHITE}Removing volumes that are not in use...${NC}"
+docker volume prune -f
 
 # It built, friend
-echo -e "${WHITE}DAAAANG, docker built!!! Nice.${NC}"
+echo -e "${WHITE}DAAAANG, the app is built!!! Nice.${NC}"
