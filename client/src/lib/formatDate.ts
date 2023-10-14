@@ -1,4 +1,4 @@
-export function formatDate(dateString: string) {
+const formatDate = (dateString: string) => {
   return new Date(`${dateString}T00:00:00Z`).toLocaleDateString('en-US', {
     day: 'numeric',
     month: 'long',
@@ -6,3 +6,5 @@ export function formatDate(dateString: string) {
     timeZone: 'UTC',
   })
 }
+
+export default formatDate
