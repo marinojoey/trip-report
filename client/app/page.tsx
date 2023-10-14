@@ -31,7 +31,7 @@ const Home = () => {
 
     useEffect(() => {
     async function fetchReports() {
-      const response: Report[] = await axios.get('http://127.0.0.1:3005/api/reports')
+      const response = await axios.get('http://127.0.0.1:3005/api/reports')
       setData(response.data)
     }
 
