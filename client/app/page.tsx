@@ -6,26 +6,57 @@ import React, { useEffect, useState } from 'react'
 // import heroimage from './assets/heroimage.jpeg'
 import HeroBackground from './assets/icons/Hero_background'
 
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  email_verified_at: string;
+  created_at: string;
+  updated_at: string;
+}
+
+interface Report {
+  id: number;
+  user_id: number;
+  title: string;
+  body: string;
+  date: string;
+  location: string;
+  image: string;
+  created_at: string;
+  updated_at: string;
+  user: User;
+}
+
 interface Data {
+  reports: Report[];
 }
 
 const Home = () => {
-  const [data, setData] = useState<Data[]>([{}])
+  const [data, setData] = useState<Data>({ reports: [] })
 
     useEffect(() => {
-    // Define an async function to make the Axios call
-    async function fetchUserData() {
-      const response = await axios.get('http://127.0.0.1:3005/')
-      // Assuming the response contains user data, set it in state
+    async function fetchReports() {
+      const response = await axios.get<Data>('http://127.0.0.1:3005/api/reports')
       setData(response.data)
     }
 
-    fetchUserData()
+    fetchReports()
   }, [])
-
+  console.log(data)
   return (
     <section className="flex h-full w-full flex-col justify-between bg-primary text-homeText">
-      <div>{JSON.stringify(data[0])}</div>
+      {Array.isArray(data.reports) && data.reports.map((report) => (
+        <div key={report.id}>
+          <h2>{report.title}</h2>
+          <p>{report.body}</p>
+          <small>{report.location}</small>
+          <div>
+            <strong>User: {report.user.name}</strong>
+            <span>Email: {report.user.email}</span>
+          </div>
+        </div>
+      ))}
       <h1
         className="container mx-auto flex h-full flex-col justify-center pl-12 pt-6
           text-3xl font-medium sm:pl-8 md:max-w-3xl md:max-3xl:pl-12 md:max-3xl:pt-16"
