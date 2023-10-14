@@ -28,5 +28,13 @@
     ],
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "react/jsx-one-expression-per-line": "off"
-  }
+  },
+    "overrides": [
+    {
+      "files": ["next.config.js"],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    }
+  ]
 }

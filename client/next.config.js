@@ -1,5 +1,5 @@
-import { config } from 'dotenv'
-import { resolve } from 'path'
+const { config } = require('dotenv')
+const { resolve } = require('path')
 
 const env = config({ path: resolve(__dirname, '../.env') }).parsed
 
@@ -8,4 +8,4 @@ const nextConfig = {
   env,
 }
 
-export default nextConfig
+module.exports = nextConfig
