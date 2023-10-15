@@ -11,7 +11,7 @@ import clsx from 'clsx'
 import { Container } from './Container'
 import avatarImage from '../images/avatar.jpg'
 import { CloseIcon, ChevronDownIcon, SunIcon, MoonIcon } from './Icons'
-import { clamp } from '../lib/helpers'
+import { clamp } from '../../../lib/helpers'
 
 function MobileNavItem({
   href,

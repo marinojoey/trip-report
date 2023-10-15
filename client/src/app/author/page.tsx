@@ -3,15 +3,15 @@ import Image from 'next/image'
 import Link from 'next/link'
 import clsx from 'clsx'
 
-import Button from '../../components/Button'
-import { Container }  from '../../components/Container'
+import Button from './components/Button'
+import { Container }  from './components/Container'
 import {
   GitHubIcon,
   InstagramIcon,
   LinkedInIcon,
   TwitterIcon,
-} from '../../components/SocialIcons'
-import avatar from '../../images/avatar.jpg'
+} from './components/SocialIcons'
+import avatar from './images/avatar.jpg'
 
 function MailIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
