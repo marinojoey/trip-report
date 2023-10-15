@@ -1,5 +1,4 @@
-import React from 'react'
-
+// eslint-disable-next-line import/prefer-default-export
 export const clamp = (number: number, a: number, b: number) => {
   const min = Math.min(a, b)
   const max = Math.max(a, b)
